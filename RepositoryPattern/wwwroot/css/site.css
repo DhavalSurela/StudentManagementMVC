@@ -1,0 +1,82 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    max-width: 100%;
+}
+
+h2 {
+    font-family: 'Dosis', sans-serif;
+    font-size: 72px;
+    line-height: 72px;
+    padding-top: 76px;
+    margin-bottom: 78px;
+}
+
+.content {
+    background-color: #e3dceb;
+    /*width: 100vw;*/
+    min-height: 100vh;
+}
+
+.block1 {
+    padding-top: 42px;
+    text-align: center;
+}
+
+    .block1 .block1_title {
+        font: 33px/36px 'Dosis', sans-serif;
+    }
+
+        .block1 .block1_title span {
+            display: block;
+            font-size: 24px;
+            padding-top: 3px;
+        }
+
+.register-form {
+    margin: 0px;
+    padding: 0px;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10vh
+}
+
+form {
+    height: fit-content;
+    border: 2px solid #8c5480;
+    background-color: #e3dceb;
+    /*background-color: #8c5480;*/
+    /*color: white;*/
+    max-width: 580px;
+}

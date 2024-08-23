@@ -1,0 +1,89 @@
+﻿@model PaginatedList<RepositoryPattern.Core.Models.Student>
+@using RepositoryPattern.Core.Models;
+
+
+
+<div class="container m-1">
+   
+    <form asp-action="GetStudentListManual" method="get">
+        <div class="form-actions no-color">
+
+            Search : <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default text-light m-1" style="background-color:#8c5480;" /> |
+            <a style="color:black" asp-action="GetStudentListManual">Back to Full List</a>
+
+        </div>
+    </form>
+
+    <div style="height:20px"></div>
+
+    <table class="table  table-bordered border-secondary table-hover text-center " id="Studenttable">
+        <thead>
+            <tr class="text-light" style="background-color: #8c5480;">
+                <th>Id</th>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Age</th>
+                <th colspan="2">Action</th>
+                @* <th>Delete</th> *@
+            </tr>
+        </thead>
+
+        <tbody>
+           
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@((Gender)item.Gender)</td>
+                    <td>@item.Age</td>
+                    <td><a class="actionlink" href="@Url.Action("GetStudentById","Students",new { studentId = item.Id })"><i class="bi bi-pencil-fill"></i></a></td>
+                    <td><a class="actionlink" href="@Url.Action("DeleteStudent","Students",new { studentId = item.Id })"><i class="bi bi-trash" onclick="return confirm('Are you sure?');"></i></a></td>
+                    @* <td>@Html.ActionLink("Delete", "DeleteStudent", "Students", new { studentId = item.Id }, new { onclick = "return confirm('Are you sure?');", @class = "actionlink" })</td> *@
+
+                </tr>
+               
+             
+            }
+            @if (Model.Count <1)
+            {
+                <tr>
+                    <td colspan="5">No Matching Records Found</td>
+                </tr>
+            }
+
+        </tbody>
+
+
+    </table>
+
+
+</div>
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="GetStudentListManual"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="GetStudentListManual"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>
+
+
+<style>
+    .actionlink {
+        color: black !important
+    }
+</style>

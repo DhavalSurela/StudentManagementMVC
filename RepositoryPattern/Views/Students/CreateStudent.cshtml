@@ -1,0 +1,41 @@
+﻿@model RepositoryPattern.Core.Models.Student;
+@using RepositoryPattern.Core.Models;
+
+<div class="register-form ">
+    <form asp-action="CreateStudent" class="m-3 p-4 rounded ">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <h1 class="h3  fw-normal d-flex justify-content-center" style="margin-bottom: 20px;">Add Student</h1>
+        <div class="row">
+            <div class="col-6">
+                <label asp-for="Name">Name</label>
+                <input asp-for="Name" type="text" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-12">
+                        <label asp-for="Gender">Gender</label>
+                    </div>
+                    <div class="col-12">
+                        <select asp-for="Gender" class="form-control" asp-items="Html.GetEnumSelectList<Gender>()">
+                            <option selected="selected" value="">Select</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-6">
+                <label asp-for="Age">Age</label>
+                <input asp-for="Age" type="number" class="form-control " />
+                @* <span asp-validation-for="StudentBirthdate" class="text-danger"></span> *@
+            </div>
+
+            <div class="col-12 btn my-3">
+                <button type="submit" class="btn" value="CreateStudent" style=" background-color: #8c5480;width:100px;color:white">Add</button>
+            </div>
+        </div>
+    </form>
+</div>

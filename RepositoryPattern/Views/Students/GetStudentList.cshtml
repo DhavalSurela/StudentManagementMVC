@@ -1,0 +1,102 @@
+﻿@model IEnumerable<RepositoryPattern.Core.Models.Student>
+@using RepositoryPattern.Core.Models;
+
+
+
+<div class="container m-1">
+
+    <div style="height:40px"></div>
+
+    <table class="table  table-bordered border-secondary table-hover text-center mt-5" id="Studenttable">
+        <thead>
+            <tr class="text-light" style="background-color: #8c5480;">
+                <th>No.</th>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Age</th>
+                <th data-orderable="false">Edit</th>
+                <th data-orderable="false">Delete</th>
+                <th>Details </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @{
+                var a = 1;
+            }
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@((Gender)item.Gender)</td>
+                    <td>@item.Age</td>
+                    @* <td>@Html.ActionLink("Edit", "GetStudentById", "Students", new { studentId = item.Id }, new { @class = "actionlink" })</td> *@
+                    <td><a class="actionlink" href="@Url.Action("GetStudentById","Students",new { studentId = item.Id })"><i class="bi bi-pencil-fill"></i></a></td>
+                    <td><a class="actionlink" onclick="alertbox(@item.Id)" id="delete"><i class="bi bi-trash"></i></a></td>
+                    @* <td>@Html.ActionLink("Delete", "DeleteStudent", "Students", new { studentId = item.Id }, new { onclick = "return confirm('Are you sure?');", @class = "actionlink" })</td> *@
+                    <td><a class="details" href="javascript:;">View</a></td>
+                </tr>
+                a++;
+            }
+
+        </tbody>
+
+
+    </table>
+    <div id="partialModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Student Details Form</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="height:40px"></div>
+
+</div>
+
+@section Scripts
+{ <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatables/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/js/Studenttable.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#Studenttable .details").click(function () {
+                debugger
+                var studentId = $(this).closest("tr").find("td").eq(0).html();
+                $.ajax({
+                    type: "POST",
+                    url: "/Students/Details",
+                    data: { "studentId": studentId },
+                    success: function (response) {
+                        $("#partialModal").find(".modal-body").html(response);
+                        $("#partialModal").modal('show');
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+<style>
+    .actionlink {
+        color: black !important
+    }
+</style>

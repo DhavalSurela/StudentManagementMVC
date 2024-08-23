@@ -1,0 +1,27 @@
+﻿@model RepositoryPattern.Core.Models.Login
+
+<div class="register-form ">
+
+    <form asp-action="Login" class=" p-4 mb-5  rounded ">
+        <div asp-validation-summary="ModelOnly" class="text-warning"></div>
+        <h1 class="h3  fw-normal d-flex justify-content-center">User</h1>
+        <div class="form-group m-2">
+            <label asp-for="UserName">UserName</label>
+            <input asp-for="UserName" type="text" class="form-control " />
+            <span asp-validation-for="UserName" class="text-warning"></span>
+        </div>
+
+        <div class="form-group m-2">
+            <label asp-for="Password">Password</label>
+            <input asp-for="Password" type="password" class="form-control" />
+            <span asp-validation-for="Password" class="text-warning"></span>
+        </div>
+
+        <div class="form-group m-2 d-flex justify-content-evenly">
+            <div class="p-3">
+                <button type="submit" class="btn text-light" value="Login" style="  background-color: #8c5480;">Login</button>
+            </div>
+        </div>
+        
+    </form>
+</div>
