@@ -39,8 +39,8 @@ namespace RepositoryPattern.Controllers
         public async Task<IActionResult> GetStudentListManual(string sortOrder, string currentFilter, string searchString, int? pageNumber)
         {
             ViewData["CurrentSort"] = sortOrder;
-            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewData["NameSortParm"] = sortOrder == "name" ? "name_desc" : "name";
+            ViewData["AgeSortParm"] = sortOrder == "age" ? "age_desc" : "age";
             ViewData["CurrentFilter"] = searchString;
             var students = _studentService.GetAllStudentsManual(sortOrder, currentFilter, searchString, pageNumber);
 

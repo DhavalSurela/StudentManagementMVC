@@ -78,13 +78,16 @@ namespace RepositoryPattern.Services
 
             switch (sortOrder)
             {
+                case "name":
+                    students = students.OrderBy(s => s.Name);
+                    break;
                 case "name_desc":
                     students = students.OrderByDescending(s => s.Name);
                     break;
-                case "Date":
+                case "age":
                     students = students.OrderBy(s => s.Age);
                     break;
-                case "date_desc":
+                case "age_desc":
                     students = students.OrderByDescending(s => s.Age);
                     break;
                 default:

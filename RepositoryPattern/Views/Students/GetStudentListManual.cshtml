@@ -4,12 +4,12 @@
 
 
 <div class="container m-1">
-   
+
     <form asp-action="GetStudentListManual" method="get">
         <div class="form-actions no-color">
 
-            Search : <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
-            <input type="submit" value="Search" class="btn btn-default text-light m-1" style="background-color:#8c5480;" /> |
+            Search : <input type="text" id="search" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit"  value="Search" class="btn btn-default text-light m-1" style="background-color:#8c5480;" /> |
             <a style="color:black" asp-action="GetStudentListManual">Back to Full List</a>
 
         </div>
@@ -21,16 +21,21 @@
         <thead>
             <tr class="text-light" style="background-color: #8c5480;">
                 <th>Id</th>
-                <th>Name</th>
+                <th>
+                    <a asp-action="GetStudentListManual" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Name</a>
+                </th>
+
                 <th>Gender</th>
-                <th>Age</th>
+                <th>
+                    <a asp-action="GetStudentListManual" asp-route-sortOrder="@ViewData["AgeSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Age</a>
+                </th>
                 <th colspan="2">Action</th>
                 @* <th>Delete</th> *@
             </tr>
         </thead>
 
         <tbody>
-           
+
             @foreach (var item in Model)
             {
 
@@ -44,10 +49,10 @@
                     @* <td>@Html.ActionLink("Delete", "DeleteStudent", "Students", new { studentId = item.Id }, new { onclick = "return confirm('Are you sure?');", @class = "actionlink" })</td> *@
 
                 </tr>
-               
-             
+
+
             }
-            @if (Model.Count <1)
+            @if (Model.Count < 1)
             {
                 <tr>
                     <td colspan="5">No Matching Records Found</td>
@@ -81,7 +86,20 @@
     Next
 </a>
 
-
+@section Scripts {
+    <script type="text/javascript">
+        $('#search').on('input', function() {
+          var c = this.selectionStart,
+              r = /[^a-zA-Z0-9]/gi,
+              v = $(this).val();
+          if(r.test(v)) {
+            $(this).val(v.replace(r, ''));
+            c--;
+          }
+          this.setSelectionRange(c, c);
+        });
+    </script>
+}
 <style>
     .actionlink {
         color: black !important
